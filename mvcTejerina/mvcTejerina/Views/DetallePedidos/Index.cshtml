@@ -1,0 +1,32 @@
+﻿@model IEnumerable<mvcTejerina.Models.DetallePedido>
+
+<h1>Detalles de Pedido</h1>
+<p><a asp-action="Create" class="btn btn-primary btn-sm">Agregar detalle</a></p>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Pedido</th>
+            <th>Producto</th>
+            <th>Cantidad</th>
+            <th>PrecioUnitario</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var d in Model ?? Enumerable.Empty<mvcTejerina.Models.DetallePedido>())
+        {
+            <tr>
+                <td>@d.IdPedido</td>
+                <td>@d.Producto?.Nombre</td>
+                <td>@d.Cantidad</td>
+                <td>@d.PrecioUnitario</td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@d.Id">Editar</a> |
+                    <a asp-action="Details" asp-route-id="@d.Id">Detalles</a> |
+                    <a asp-action="Delete" asp-route-id="@d.Id">Eliminar</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

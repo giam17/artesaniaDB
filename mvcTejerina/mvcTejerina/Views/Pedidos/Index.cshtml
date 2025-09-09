@@ -1,0 +1,32 @@
+﻿@model IEnumerable<mvcTejerina.Models.Pedido>
+
+<h1>Pedidos</h1>
+<p><a asp-action="Create" class="btn btn-primary btn-sm">Crear nuevo</a></p>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Fecha</th>
+            <th>Cliente</th>
+            <th>Estado</th>
+            <th>Monto</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model ?? Enumerable.Empty<mvcTejerina.Models.Pedido>())
+        {
+            <tr>
+                <td>@item.FechaPedido.ToShortDateString()</td>
+                <td>@item.Cliente?.Nombre</td>
+                <td>@item.Estado</td>
+                <td>@item.MontoTotal</td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.Id">Editar</a> |
+                    <a asp-action="Details" asp-route-id="@item.Id">Detalles</a> |
+                    <a asp-action="Delete" asp-route-id="@item.Id">Eliminar</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

@@ -1,0 +1,84 @@
+﻿@{
+    var currentController = ViewContext.RouteData.Values["controller"]?.ToString() ?? "";
+    var currentAction = ViewContext.RouteData.Values["action"]?.ToString() ?? "";
+}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>@(ViewData["Title"] ?? "Artesanías") - mvcTejerina</title>
+
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/mvcTejerina.styles.css" asp-append-version="true" />
+</head>
+<body class="bg-light">
+    <header>
+        <nav class="navbar navbar-expand-lg navbar-dark bg-primary shadow-sm">
+            <div class="container">
+                <a class="navbar-brand fw-bold" asp-area="" asp-controller="Home" asp-action="Index">
+                    Artesanías del Sol
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav"
+                        aria-controls="mainNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <div id="mainNav" class="collapse navbar-collapse">
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+
+                        <li class="nav-item">
+                            <a class="nav-link @(currentController == "Home" ? "active" : "")"
+                               asp-controller="Home" asp-action="Index">Inicio</a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link @(currentController == "Clientes" ? "active" : "")"
+                               asp-controller="Clientes" asp-action="Index">Clientes</a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link @(currentController == "Productoes" ? "active" : "")"
+                               asp-controller="Productoes" asp-action="Index">Productos</a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link @(currentController == "Pedidos" ? "active" : "")"
+                               asp-controller="Pedidos" asp-action="Index">Pedidos</a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link @(currentController == "DetallePedidos" ? "active" : "")"
+                               asp-controller="DetallePedidos" asp-action="Index">Detalles</a>
+                        </li>
+
+                    </ul>
+
+
+                    <div class="d-flex">
+                        <a class="btn btn-light btn-sm me-2" asp-controller="Home" asp-action="Privacy">Privacidad</a>
+                        <!-- espacio para futuro login -->
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <main class="container py-4">
+        @RenderBody()
+    </main>
+
+    <footer class="border-top py-3">
+        <div class="container text-muted small">
+            &copy; @DateTime.Now.Year - mvcTejerina ·
+            <a asp-controller="Home" asp-action="Privacy">Privacidad</a>
+        </div>
+    </footer>
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

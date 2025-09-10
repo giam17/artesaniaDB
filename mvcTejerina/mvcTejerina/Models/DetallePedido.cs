@@ -19,5 +19,5 @@ public class DetallePedido
     public int Cantidad { get; set; }
 
     [Column(TypeName = "decimal(18,2)")]
-    public decimal PrecioUnitario { get; set; }  // copia del precio del producto al momento del pedido
+    public decimal PrecioUnitario { get; set; }  
 }

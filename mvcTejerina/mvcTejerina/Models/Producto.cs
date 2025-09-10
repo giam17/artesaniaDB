@@ -10,7 +10,7 @@ public class Producto
     public string Nombre { get; set; } = default!;
 
     [Range(0, 999999)]
-    public decimal PrecioUnitario { get; set; }   // precio base del catálogo
+    public decimal PrecioUnitario { get; set; }   
 
     public ICollection<DetallePedido>? Detalles { get; set; }
 }

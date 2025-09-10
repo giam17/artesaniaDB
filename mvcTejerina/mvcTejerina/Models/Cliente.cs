@@ -15,6 +15,5 @@ public class Cliente
     [StringLength(200)]
     public string? Direccion { get; set; }
 
-    // Navegación
     public ICollection<Pedido>? Pedidos { get; set; }
 }

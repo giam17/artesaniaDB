@@ -15,14 +15,12 @@ namespace mvcTejerina.Controllers
             _context = context;
         }
 
-        // GET: Pedidos
         public async Task<IActionResult> Index()
         {
             var pedidos = _context.Pedidos.Include(p => p.Cliente);
             return View(await pedidos.ToListAsync());
         }
 
-        // GET: Pedidos/Details/5
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null) return NotFound();
@@ -35,21 +33,18 @@ namespace mvcTejerina.Controllers
             return View(pedido);
         }
 
-        // GET: Pedidos/Create
         public IActionResult Create()
         {
             ViewData["IdCliente"] = new SelectList(_context.Clientes, "Id", "Nombre");
             return View();
         }
 
-        // POST: Pedidos/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Id,FechaPedido,IdCliente,Estado")] Pedido pedido)
         {
             if (ModelState.IsValid)
             {
-                // Inicializa valores calculados/por defecto
                 pedido.MontoTotal = 0m;
                 if (string.IsNullOrWhiteSpace(pedido.Estado)) pedido.Estado = "Pendiente";
 
@@ -61,9 +56,7 @@ namespace mvcTejerina.Controllers
             return View(pedido);
         }
 
-        // ========= EDIT =========
 
-        // GET: Pedidos/Edit/5   <-- GET debe recibir solo el id (nullable)
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null) return NotFound();
@@ -75,7 +68,6 @@ namespace mvcTejerina.Controllers
             return View(pedido);
         }
 
-        // POST: Pedidos/Edit/5  <-- POST con Bind SIN MontoTotal (se conserva)
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("Id,FechaPedido,IdCliente,Estado")] Pedido pedido)
@@ -86,7 +78,6 @@ namespace mvcTejerina.Controllers
             {
                 try
                 {
-                    // Conservar el MontoTotal calculado
                     var original = await _context.Pedidos
                         .AsNoTracking()
                         .FirstOrDefaultAsync(p => p.Id == id);
@@ -109,9 +100,7 @@ namespace mvcTejerina.Controllers
             return View(pedido);
         }
 
-        // ========= DELETE =========
-
-        // GET: Pedidos/Delete/5
+ 
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null) return NotFound();
@@ -124,7 +113,6 @@ namespace mvcTejerina.Controllers
             return View(pedido);
         }
 
-        // POST: Pedidos/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)

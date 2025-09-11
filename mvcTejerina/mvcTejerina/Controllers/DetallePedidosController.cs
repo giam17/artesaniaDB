@@ -18,7 +18,6 @@ namespace mvcTejerina.Controllers
             _totals = totals;
         }
 
-        // GET: DetallePedidos
         public async Task<IActionResult> Index()
         {
             var detalles = _context.DetallesPedido
@@ -27,7 +26,6 @@ namespace mvcTejerina.Controllers
             return View(await detalles.ToListAsync());
         }
 
-        // GET: DetallePedidos/Details/5
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null) return NotFound();
@@ -41,7 +39,6 @@ namespace mvcTejerina.Controllers
             return View(detallePedido);
         }
 
-        // GET: DetallePedidos/Create
         public IActionResult Create()
         {
             ViewData["IdPedido"] = new SelectList(_context.Pedidos, "Id", "Id");
@@ -49,12 +46,11 @@ namespace mvcTejerina.Controllers
             return View();
         }
 
-        // POST: DetallePedidos/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Id,IdPedido,IdProducto,Cantidad")] DetallePedido detallePedido)
         {
-            // Copiamos precio del producto SIEMPRE
+
             detallePedido.PrecioUnitario = await _totals.GetPrecioProductoAsync(detallePedido.IdProducto);
 
             if (ModelState.IsValid)
@@ -71,7 +67,6 @@ namespace mvcTejerina.Controllers
             return View(detallePedido);
         }
 
-        // GET: DetallePedidos/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null) return NotFound();
@@ -84,7 +79,6 @@ namespace mvcTejerina.Controllers
             return View(detallePedido);
         }
 
-        // POST: DetallePedidos/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("Id,IdPedido,IdProducto,Cantidad")] DetallePedido detallePedido)
@@ -116,7 +110,7 @@ namespace mvcTejerina.Controllers
             return View(detallePedido);
         }
 
-        // GET: DetallePedidos/Delete/5
+
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null) return NotFound();
